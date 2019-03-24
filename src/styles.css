@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    padding-top: 50px;
+}
+
+.loading {
+    font-weight: bold;
+    margin-top: 150px;
+}
+
+.logo {
+    margin: 5px;
+}
+
+.white-scroll {
+    height: 100%;
+    background: linear-gradient(
+        rgba(255,255,255,0) 0%, 
+        rgba(255, 255, 255, 0) 400px, 
+        rgba(255, 255, 255, 0.8) 750px, 
+        rgba(255, 255, 255, 0.9) 800px
+    );
+}

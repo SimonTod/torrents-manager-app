@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            Torrents Manager
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <a class="nav-item nav-link" [routerLink]="['/']">Acceuil</a>
+            </div>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item" *ngIf="!hasAuthToken()"><a class="nav-link" [routerLink]="['/login']">Connexion</a></li>
+                <li class="nav-item" *ngIf="hasAuthToken()"><a class="nav-link" (click)="logout()" href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
