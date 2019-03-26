@@ -10,6 +10,7 @@ export class Media {
     episode: number;
     torrent_url: string;
     date: Date;
+    status: string;
 }
 
 export class MediaType {

@@ -11,8 +11,8 @@
     <th scope="col">Artist</th>
     <th scope="col">Saison</th>
     <th scope="col">Episode</th>
-    <th scope="col">Url</th>
     <th scope="col">Ajouté le</th>
+    <th scope="col">Statut</th>
   </tr>
   </thead>
   <tbody>
@@ -23,8 +23,8 @@
     <td>{{ media.artist }}</td>
     <td>{{ media.season | number }}</td>
     <td>{{ media.episode | number }}</td>
-    <td>{{ media.torrent_url }}</td>
     <td>{{ media.date | date }}</td>
+    <td>{{ media.status }}</td>
   </tr>
   </tbody>
 </table>
