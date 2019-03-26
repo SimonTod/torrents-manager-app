@@ -1,0 +1,56 @@
+<button class="btn btn-default btn-sm" (click)="openModal(content)">Ajouter</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Créer une demande</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="create()">
+      <div class="form-group">
+        <label for="name">Nom *</label>
+        <input id="name" type="text" class="form-control" placeholder="Nom *" formControlName="name">
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type *</label>
+        <select id="type" class="form-control" formControlName="type_id" *ngIf="mediaTypes">
+          <option *ngFor="let option of mediaTypes" [value]="option.id">{{option.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="form.value.type_id == 1">
+        <label for="artist">Artiste *</label>
+        <input id="artist" type="text" class="form-control" placeholder="Artiste" formControlName="artist">
+      </div>
+
+      <div class="form-group" *ngIf="form.value.type_id == 2">
+        <label for="season">Saison</label>
+        <input id="season" type="number" class="form-control" placeholder="Saison" formControlName="season">
+      </div>
+
+      <div class="form-group" *ngIf="form.value.type_id == 2">
+        <label for="episode">Episode</label>
+        <input id="episode" type="number" class="form-control" placeholder="Episode" formControlName="episode">
+      </div>
+
+      <div class="form-group">
+        <label for="torrent_url">Torrent Url *</label>
+        <input id="torrent_url" type="text" class="form-control" placeholder="Torrent Url *" formControlName="torrent_url">
+      </div>
+  
+      <button type="submit" class="btn btn-success pull-right" [disabled]="!form.valid">Confirmer</button>
+    </form>
+
+    <div [hidden]="!error" class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Erreur:</span>
+      Erreur: {{error}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Fermer</button>
+  </div>
+</ng-template>

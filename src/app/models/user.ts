@@ -1,4 +1,4 @@
-export class CurrentUser {
+export class User {
     id: number;
     username: string;
     last_name: string;

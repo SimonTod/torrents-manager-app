@@ -12,9 +12,11 @@ import { TokenService } from './app.tokenservice';
 import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
 
 import { AppComponent } from './app.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { LoginpageComponent } from './loginpage/loginpage.component';
-import { RegisterpageComponent } from './registerpage/registerpage.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { LoginpageComponent } from './components/loginpage/loginpage.component';
+import { RegisterpageComponent } from './components/registerpage/registerpage.component';
+import { MediaListComponent } from './components/media-list/media-list.component';
+import { MediaCreateComponent } from './components/media-create/media-create.component';
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
@@ -33,7 +35,9 @@ export function jwtOptionsFactory(tokenService) {
     AppComponent,
     HomepageComponent,
     LoginpageComponent,
-    RegisterpageComponent
+    RegisterpageComponent,
+    MediaListComponent,
+    MediaCreateComponent
   ],
   imports: [
     BrowserModule,

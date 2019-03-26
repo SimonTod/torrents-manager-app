@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomepageComponent } from './homepage/homepage.component';
-import { LoginpageComponent } from './loginpage/loginpage.component';
-import { RegisterpageComponent } from './registerpage/registerpage.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { LoginpageComponent } from './components/loginpage/loginpage.component';
+import { RegisterpageComponent } from './components/registerpage/registerpage.component';
 
 const APP_ROUTES: Routes = [
     {

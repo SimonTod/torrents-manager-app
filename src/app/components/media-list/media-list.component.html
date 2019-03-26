@@ -1,0 +1,30 @@
+<h3>Liste des demandes</h3>
+
+<app-media-create (created)="ngOnInit()"></app-media-create>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Type</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Ajouté par</th>
+    <th scope="col">Artist</th>
+    <th scope="col">Saison</th>
+    <th scope="col">Episode</th>
+    <th scope="col">Url</th>
+    <th scope="col">Ajouté le</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let media of medias">
+    <td>{{ media.type.name }}</td>
+    <td>{{ media.name }}</td>
+    <td>{{ media.user.username }}</td>
+    <td>{{ media.artist }}</td>
+    <td>{{ media.season | number }}</td>
+    <td>{{ media.episode | number }}</td>
+    <td>{{ media.torrent_url }}</td>
+    <td>{{ media.date | date }}</td>
+  </tr>
+  </tbody>
+</table>
