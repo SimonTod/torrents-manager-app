@@ -14,6 +14,6 @@ export class Media {
 }
 
 export class MediaType {
-    id: number;
+    type: string;
     name: string;
 }

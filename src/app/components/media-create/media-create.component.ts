@@ -44,11 +44,11 @@ export class MediaCreateComponent implements OnInit {
   openModal(content) {
     this.form = this.formBuilder.group({
       'name': ['', Validators.required],
-      'type_id': ['', Validators.required],
+      'type': ['', Validators.required],
       'torrent_url': ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
-      'artist': [''],
-      'season': [''],
-      'episode': ['']
+      // 'artist': [''],
+      // 'season': [''],
+      // 'episode': ['']
     });
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: "lg"}).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
@@ -65,7 +65,7 @@ export class MediaCreateComponent implements OnInit {
       this.config.apiEndpoint + "/media/create", 
       { 
         name: this.form.value.name,
-        type_id: this.form.value.type_id,
+        type: this.form.value.type,
         torrent_url: this.form.value.torrent_url
       }
     ).then(

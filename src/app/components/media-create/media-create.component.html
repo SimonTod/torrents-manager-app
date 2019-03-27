@@ -16,8 +16,8 @@
 
       <div class="form-group">
         <label for="type">Type *</label>
-        <select id="type" class="form-control" formControlName="type_id" *ngIf="mediaTypes">
-          <option *ngFor="let option of mediaTypes" [value]="option.id">{{option.name}}</option>
+        <select id="type" class="form-control" formControlName="type" *ngIf="mediaTypes">
+          <option *ngFor="let option of mediaTypes" [value]="option.type">{{option.name}}</option>
         </select>
       </div>
 
