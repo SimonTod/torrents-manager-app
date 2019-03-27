@@ -21,19 +21,40 @@
         </select>
       </div>
 
-      <div class="form-group" *ngIf="form.value.type_id == 1">
-        <label for="artist">Artiste *</label>
-        <input id="artist" type="text" class="form-control" placeholder="Artiste" formControlName="artist">
+      <!-- Music complementary information -->
+      <div *ngIf="form.value.type == 'music'">
+        <div class="form-group">
+          <label for="artist">Artiste *</label>
+          <input id="artist" type="text" class="form-control" placeholder="Artiste" formControlName="artist">
+        </div>
       </div>
 
-      <div class="form-group" *ngIf="form.value.type_id == 2">
-        <label for="season">Saison</label>
-        <input id="season" type="number" class="form-control" placeholder="Saison" formControlName="season">
-      </div>
-
-      <div class="form-group" *ngIf="form.value.type_id == 2">
-        <label for="episode">Episode</label>
-        <input id="episode" type="number" class="form-control" placeholder="Episode" formControlName="episode">
+      <!-- Series complementary information -->
+      <div *ngIf="form.value.type == 'serie'">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input id=serie-complete type="checkbox" class="form-check-input" value="" formControlName="serie_complete">Série complète
+          </label>
+        </div>
+        
+        <div *ngIf="!form.value.serie_complete">
+          <div class="form-group">
+            <label for="season">Saison</label>
+            <input id="season" type="number" class="form-control" placeholder="Saison" formControlName="season">
+          </div>
+      
+          <div class="form-check">
+            <label class="form-check-label">
+              <input id=season-complete type="checkbox" class="form-check-input" value="" formControlName="season_complete">Saison complète
+            </label>
+          </div>
+        
+          <div class="form-group" *ngIf="!form.value.season_complete">
+            <label for="episode">Episode</label>
+            <input id="episode" type="number" class="form-control" placeholder="Episode" formControlName="episode">
+          </div>
+        </div>
+        
       </div>
 
       <div class="form-group">

@@ -25,7 +25,7 @@ export class RegisterpageComponent implements OnInit {
     this.config = configuration;
     this.registerForm = formBuilder.group({
       'username': ['', Validators.required],
-      'email': ['', Validators.required],
+      'email': ['', Validators.required, Validators.email],
       'password': ['', Validators.required],
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required]
