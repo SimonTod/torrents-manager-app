@@ -61,6 +61,13 @@
         <label for="torrent_url">Torrent Url *</label>
         <input id="torrent_url" type="text" class="form-control" placeholder="Torrent Url *" formControlName="torrent_url">
       </div>
+
+      <ngb-alert [dismissible]="false">
+        <strong>A lire !</strong>
+        Merci de renseigner l'url d'un torrent provenant du site <a href="https://yggtorrent.gg" target="_blank">yggtorrent.gg</a> pour un traitement plus rapide.
+        <br/>
+        Pensez aux autres, essayer de trouver en multi (Langue VO + VF et Sous-Titres EN + FR) dans la mesure du possible.
+      </ngb-alert>
   
       <button type="submit" class="btn btn-success pull-right" [disabled]="!form.valid">Confirmer</button>
     </form>
