@@ -56,7 +56,7 @@ export class MediaCreateComponent implements OnInit {
     this.form = this.formBuilder.group({
       'name': [null, Validators.required],
       'type': ['movie', Validators.required],
-      'torrent_url': [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+      'torrent_url': [null, [Validators.required, Validators.pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)]],
       'artist': [null],
       'serie_complete': [null],
       'season': [null],
