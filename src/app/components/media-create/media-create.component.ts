@@ -162,6 +162,9 @@ export class MediaCreateComponent implements OnInit {
           case 402:
             this.error = "Cette url existe déjà.";
             break;
+          case 405:
+            this.error = "Seuls les torrents provenant de YggTorrent sont pris en compte pour le moment.";
+            break;
           default:
             this.error = "Une erreur est survenue, veillez réessayer.";
             break;
