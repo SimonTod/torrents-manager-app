@@ -11,6 +11,7 @@ export class Media {
     torrent_url: string;
     date: Date;
     status: string;
+    downloadedPercentage: string;
 }
 
 export class MediaType {

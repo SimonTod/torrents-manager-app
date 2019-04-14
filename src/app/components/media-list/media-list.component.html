@@ -8,11 +8,12 @@
     <th scope="col">Type</th>
     <th scope="col">Nom</th>
     <th scope="col">Ajouté par</th>
-    <th scope="col">Artist</th>
+    <th scope="col">Artiste</th>
     <th scope="col">Saison</th>
     <th scope="col">Episode</th>
     <th scope="col">Ajouté le</th>
     <th scope="col">Statut</th>
+    <th scope="col">Téléchargé</th>
   </tr>
   </thead>
   <tbody>
@@ -25,6 +26,7 @@
     <td>{{ media.episode | number }}</td>
     <td>{{ media.date | date }}</td>
     <td>{{ media.status }}</td>
+    <td>{{ media.downloadedPercentage }}</td>
   </tr>
   </tbody>
 </table>
