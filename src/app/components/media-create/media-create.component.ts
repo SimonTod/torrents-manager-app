@@ -1,13 +1,18 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
-import { HttpService } from '../../services/http.service';
-import { ApplicationConfig, MY_CONFIG_TOKEN } from '../../app.config';
+import {HttpService} from '../../services/http.service';
+import {ApplicationConfig, MY_CONFIG_TOKEN} from '../../app.config';
 
-import { MediaType } from '../../models/media';
+import {MediaType} from '../../models/media';
+
+export interface DialogData {
+  config: ApplicationConfig
+}
 
 @Component({
   selector: 'app-media-create',
@@ -16,40 +21,65 @@ import { MediaType } from '../../models/media';
 })
 export class MediaCreateComponent implements OnInit {
   config: ApplicationConfig;
-  mediaTypes: Array<MediaType>;
-  error: string = '';
-  form: FormGroup;
 
   @Output() created = new EventEmitter<string>();
 
   constructor(
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
-    private httpService: HttpService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-  ) { 
+    private dialog: MatDialog
+  ) {
     this.config = configuration;
+  }
+
+  ngOnInit(): void {
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(MediaCreateDialog, {
+      width: '500px',
+      data: {config: this.config}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.created.next();
+    });
+  }
+
+}
+
+@Component({
+  selector: 'media-create-dialog',
+  templateUrl: 'media-create-dialog.html',
+  styleUrls: ['./media-create.component.css']
+})
+export class MediaCreateDialog {
+  config: ApplicationConfig;
+  mediaTypes: Array<MediaType>;
+  form: FormGroup;
+  error: string = '';
+
+  constructor(
+    public dialogRef: MatDialogRef<MediaCreateDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private formBuilder: FormBuilder,
+    private httpService: HttpService,
+  ) {
+    this.config = data.config;
+    this.initForm();
   }
 
   ngOnInit() {
     this.httpService.get(this.config.apiEndpoint + "/media/types/list")
-    .then(
-      (data: Array<MediaType>) => {
-        this.mediaTypes = data;
-      },
-      error => this.error = error.message
-    )
+      .then(
+        (data: Array<MediaType>) => {
+          this.mediaTypes = data;
+        },
+        error => this.error = error.message
+      )
   }
 
-  openModal(content) {
-    this.initForm();
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: "lg"}).result.then((result) => {
-      //this.closeResult = `Closed with: ${result}`;
-      this.error = '';
-    }, (reason) => {
-      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.error = '';
-    });
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   initForm() {
@@ -71,77 +101,77 @@ export class MediaCreateComponent implements OnInit {
     const episodeControl = this.form.get('episode');
     typeControl.valueChanges
       .subscribe(type => {
-        artistControl.setValue(null);
-        serieCompleteControl.setValue(null);
-        seasonControl.setValue(null);
-        seasonCompleteControl.setValue(null);
-        episodeControl.setValue(null);
-        switch(type) {
-          case 'movie':
-          case 'other':
-            artistControl.setValidators(null);
-            seasonControl.setValidators(null);
-            episodeControl.setValidators(null);
-            break;
-          case 'music':
-            artistControl.setValidators([Validators.required]);
-            seasonControl.setValidators(null);
-            episodeControl.setValidators(null);
-            break;
-          case 'serie':
-            artistControl.setValidators(null);
-            seasonControl.setValidators([Validators.required, Validators.min(0)]);
-            episodeControl.setValidators([Validators.required, Validators.min(0)]);
-            break;
+          artistControl.setValue(null);
+          serieCompleteControl.setValue(null);
+          seasonControl.setValue(null);
+          seasonCompleteControl.setValue(null);
+          episodeControl.setValue(null);
+          switch (type) {
+            case 'movie':
+            case 'other':
+              artistControl.setValidators(null);
+              seasonControl.setValidators(null);
+              episodeControl.setValidators(null);
+              break;
+            case 'music':
+              artistControl.setValidators([Validators.required]);
+              seasonControl.setValidators(null);
+              episodeControl.setValidators(null);
+              break;
+            case 'serie':
+              artistControl.setValidators(null);
+              seasonControl.setValidators([Validators.required, Validators.min(0)]);
+              episodeControl.setValidators([Validators.required, Validators.min(0)]);
+              break;
+          }
+          artistControl.updateValueAndValidity();
+          serieCompleteControl.updateValueAndValidity();
+          seasonControl.updateValueAndValidity();
+          seasonCompleteControl.updateValueAndValidity();
+          episodeControl.updateValueAndValidity();
         }
-        artistControl.updateValueAndValidity();
-        serieCompleteControl.updateValueAndValidity();
-        seasonControl.updateValueAndValidity();
-        seasonCompleteControl.updateValueAndValidity();
-        episodeControl.updateValueAndValidity();
-      }
-    );
+      );
     serieCompleteControl.valueChanges
       .subscribe(serieComplete => {
-        if (!serieComplete && typeControl.value == 'serie') {
-          seasonControl.setValue(null);
-          seasonControl.setValidators([Validators.required, Validators.min(0)]);
-          seasonCompleteControl.setValue(null);
-          seasonCompleteControl.setValidators(null);
-          episodeControl.setValue(null);
-          episodeControl.setValidators([Validators.required, Validators.min(0)]);
-        } else {
-          seasonControl.setValue(null);
-          seasonControl.setValidators(null);
-          seasonCompleteControl.setValue(null);
-          seasonCompleteControl.setValidators(null);
-          episodeControl.setValue(null);
-          episodeControl.setValidators(null);
+          if (!serieComplete && typeControl.value == 'serie') {
+            seasonControl.setValue(null);
+            seasonControl.setValidators([Validators.required, Validators.min(0)]);
+            seasonCompleteControl.setValue(null);
+            seasonCompleteControl.setValidators(null);
+            episodeControl.setValue(null);
+            episodeControl.setValidators([Validators.required, Validators.min(0)]);
+          } else {
+            seasonControl.setValue(null);
+            seasonControl.setValidators(null);
+            seasonCompleteControl.setValue(null);
+            seasonCompleteControl.setValidators(null);
+            episodeControl.setValue(null);
+            episodeControl.setValidators(null);
+          }
+          seasonControl.updateValueAndValidity();
+          seasonCompleteControl.updateValueAndValidity();
+          episodeControl.updateValueAndValidity();
         }
-        seasonControl.updateValueAndValidity();
-        seasonCompleteControl.updateValueAndValidity();
-        episodeControl.updateValueAndValidity();
-      }
-    );
+      );
     seasonCompleteControl.valueChanges
       .subscribe(seasonComplete => {
-        if (!seasonComplete && typeControl.value == 'serie' && !serieCompleteControl) {
-          episodeControl.setValue(null);
-          episodeControl.setValidators([Validators.required, Validators.min(0)]);
-        } else {
-          episodeControl.setValue(null);
-          episodeControl.setValidators(null);
+          if (!seasonComplete && !serieCompleteControl.value && typeControl.value == 'serie') {
+            episodeControl.setValue(null);
+            episodeControl.setValidators([Validators.required, Validators.min(0)]);
+          } else {
+            episodeControl.setValue(null);
+            episodeControl.setValidators(null);
+          }
+          episodeControl.updateValueAndValidity();
         }
-        episodeControl.updateValueAndValidity();
-      }
-    );
+      );
   }
 
   create() {
     this.error = '';
     this.httpService.post(
-      this.config.apiEndpoint + "/media/create", 
-      { 
+      this.config.apiEndpoint + "/media/create",
+      {
         name: this.form.value.name,
         type: this.form.value.type,
         torrent_url: this.form.value.torrent_url,
@@ -151,11 +181,10 @@ export class MediaCreateComponent implements OnInit {
       }
     ).then(
       (data: any) => {
-        this.modalService.dismissAll("User created a media successfully");
-        this.created.next();
+        // this.created.next();
       },
       (error: HttpErrorResponse) => {
-        switch(error.status) {
+        switch (error.status) {
           case 401:
             this.error = "Ce nom existe déjà.";
             break;

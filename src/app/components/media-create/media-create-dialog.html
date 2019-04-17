@@ -1,0 +1,92 @@
+<h1 mat-dialog-title>Créer une demande</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="create()">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Nom" formControlName="name">
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Le nom est <strong>requis</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="mediaTypes" class="full-width">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let option of mediaTypes" [value]="option.type">{{option.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Music complementary information -->
+    <mat-form-field class="full-width" *ngIf="form.value.type == 'music'">
+      <input matInput placeholder="Artiste *" formControlName="artist">
+      <mat-error *ngIf="form.get('artist').hasError('required')">
+        L'artiste est <strong>requis</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Series complementary information -->
+    <div *ngIf="form.value.type == 'serie'">
+      <mat-checkbox formControlName="serie_complete">
+        Série complète
+      </mat-checkbox>
+
+      <div *ngIf="!form.value.serie_complete">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Saison" formControlName="season" type="number">
+          <mat-error *ngIf="form.get('season').hasError('min') && !form.get('season').hasError('required')">
+            La saison doit être supérieure ou égale à 0
+          </mat-error>
+          <mat-error *ngIf="form.get('season').hasError('required')">
+            La saison est <strong>requise</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="season_complete">
+          Saison complète
+        </mat-checkbox>
+
+        <mat-form-field class="full-width" *ngIf="!form.value.season_complete">
+          <input matInput placeholder="Episode" formControlName="episode" type="number">
+          <mat-error *ngIf="form.get('episode').hasError('min') && !form.get('episode').hasError('required')">
+            L'épisode doit être supérieur ou égal à 0
+          </mat-error>
+          <mat-error *ngIf="form.get('episode').hasError('required')">
+            L'épisode est <strong>requis</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Torrent Url" formControlName="torrent_url">
+      <mat-error *ngIf="form.get('torrent_url').hasError('pattern') && !form.get('torrent_url').hasError('required')">
+        L'url du torrent doit être au bon format
+      </mat-error>
+      <mat-error *ngIf="form.get('torrent_url').hasError('required')">
+        L'url du torrent est <strong>requise</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-card class="card">
+      <mat-card-header>
+        <strong>A lire !</strong>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Merci de renseigner l'url d'un torrent provenant du site <a href="https://yggtorrent.gg" target="_blank">yggtorrent.gg</a>
+          pour un traitement plus rapide.
+          <br/>
+          Pensez aux autres, essayer de trouver en multi (Langue VO + VF et Sous-Titres EN + FR) dans la mesure du
+          possible.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Confirmer</button>
+  </form>
+
+  <app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+</div>

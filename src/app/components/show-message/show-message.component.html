@@ -1,0 +1,13 @@
+<mat-card [class.error]="color == 'error'" [class.success]="color == 'success'">
+  <mat-card-header>
+    <strong>{{title}} !</strong>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngIf="message == 'LOGIN_SUCCESS'">
+      <b>Succès:</b> Votre compte a bien été créé, vous pouvez maintenant vous connecter. <a class="btn btn-default" [routerLink]="['/login']">Connexion</a>
+    </p>
+    <p *ngIf="message != 'LOGIN_SUCCESS'">
+      {{message}}
+    </p>
+  </mat-card-content>
+</mat-card>

@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, OnInit, Inject} from '@angular/core';
+import {Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {Router} from '@angular/router';
 
-import { HttpService } from '../../services/http.service';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../../app.config';
+import {HttpService} from '../../services/http.service';
+import {ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN} from '../../app.config';
 
 @Component({
   selector: 'app-loginpage',
@@ -20,10 +20,10 @@ export class LoginpageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public httpService: HttpService
-  ) { 
+  ) {
     this.config = configuration;
     this.loginForm = formBuilder.group({
-      'username': ['', [ Validators.required, Validators.email ]],
+      'username': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required]
     });
   }
@@ -36,8 +36,8 @@ export class LoginpageComponent implements OnInit {
   onSubmit() {
     this.error = '';
     this.httpService.post(
-      this.config.apiEndpoint + "/login_check", 
-      { username: this.loginForm.value.username, password: this.loginForm.value.password }
+      this.config.apiEndpoint + "/login_check",
+      {username: this.loginForm.value.username, password: this.loginForm.value.password}
     ).then(
       (data: any) => {
         localStorage.setItem('token', data.token);

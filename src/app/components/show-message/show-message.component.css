@@ -1,0 +1,9 @@
+.error {
+    background-color: rgb(163, 19, 9) !important;
+    color: white;
+}
+
+.success {
+    background-color: #673ab7;
+    color: white;
+}

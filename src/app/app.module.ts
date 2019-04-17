@@ -1,22 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { JwtModule, JWT_OPTIONS, JwtInterceptor } from '@auth0/angular-jwt';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { YoutubePlayerModule } from 'ngx-youtube-player';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {JwtModule, JWT_OPTIONS, JwtInterceptor} from '@auth0/angular-jwt';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { Routing } from './app.routing';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from './app.config';
-import { TokenService } from './app.tokenservice';
-import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
+import {Routing} from './app.routing';
+import {ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN} from './app.config';
+import {TokenService} from './app.tokenservice';
+import {RefreshTokenInterceptorService} from './services/refresh-token-interceptor.service';
 
-import { AppComponent } from './app.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginpageComponent } from './components/loginpage/loginpage.component';
-import { RegisterpageComponent } from './components/registerpage/registerpage.component';
-import { MediaListComponent } from './components/media-list/media-list.component';
-import { MediaCreateComponent } from './components/media-create/media-create.component';
+import {AppComponent} from './app.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {LoginpageComponent} from './components/loginpage/loginpage.component';
+import {RegisterpageComponent} from './components/registerpage/registerpage.component';
+import {MediaListComponent} from './components/media-list/media-list.component';
+import {MediaCreateComponent, MediaCreateDialog} from './components/media-create/media-create.component';
+import {ShowMessageComponent} from './components/show-message/show-message.component';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MatIconModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatSelectModule,
+  MatInputModule,
+  MatTableModule,
+  MatDialogModule,
+  MatCheckboxModule,
+  MatCardModule
+} from "@angular/material";
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
@@ -37,8 +53,11 @@ export function jwtOptionsFactory(tokenService) {
     LoginpageComponent,
     RegisterpageComponent,
     MediaListComponent,
-    MediaCreateComponent
+    MediaCreateComponent,
+    MediaCreateDialog,
+    ShowMessageComponent
   ],
+  entryComponents: [MediaCreateDialog],
   imports: [
     BrowserModule,
     Routing,
@@ -52,7 +71,19 @@ export function jwtOptionsFactory(tokenService) {
       }
     }),
     YoutubePlayerModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatCardModule
   ],
   providers: [
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},
@@ -71,4 +102,5 @@ export function jwtOptionsFactory(tokenService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
