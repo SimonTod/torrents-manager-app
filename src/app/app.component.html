@@ -1,6 +1,8 @@
 <mat-toolbar>
   <span>Torrents Manager</span>
-  <button mat-button *ngIf="hasAuthToken()" (click)="logout()">Déconnexion</button>
+  <span class="toolbar-spacer"></span>
+  <button mat-button *ngIf="hasAuthToken()" (click)="logout()" class="logout">Déconnexion</button>
+  <button mat-button *ngIf="!hasAuthToken()" [routerLink]="['/login']">Connexion</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

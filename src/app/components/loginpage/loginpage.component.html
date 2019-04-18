@@ -1,26 +1,31 @@
-<h1 mat-dialog-title>Connexion</h1>
+<div class="container" fxLayout="row" fxLayoutWrap fxLayoutAlign="center">
+  <div fxFlex="50%" fxFlex.sm="70%" fxFlex.xs="100%">
+    <h1 mat-dialog-title>Connexion</h1>
 
-<app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
+    <app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
 
-<button mat-raised-button color="accent" [routerLink]="['/register']">Inscription</button>
+    <button mat-raised-button color="accent" [routerLink]="['/register']">Inscription</button>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Email" formControlName="username">
-    <mat-error *ngIf="loginForm.get('username').hasError('email') && !loginForm.get('username').hasError('required')">
-      Veuillez entrer un email valide
-    </mat-error>
-    <mat-error *ngIf="loginForm.get('username').hasError('required')">
-      L'email est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" formControlName="username">
+        <mat-error
+          *ngIf="loginForm.get('username').hasError('email') && !loginForm.get('username').hasError('required')">
+          Veuillez entrer un email valide
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('username').hasError('required')">
+          L'email est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Mot de passe" formControlName="password" type="password">
-    <mat-error *ngIf="loginForm.get('password').hasError('required')">
-      Le mot de passe est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Mot de passe" formControlName="password" type="password">
+        <mat-error *ngIf="loginForm.get('password').hasError('required')">
+          Le mot de passe est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Confirmer</button>
-</form>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Confirmer</button>
+    </form>
+  </div>
+</div>

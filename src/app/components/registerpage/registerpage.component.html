@@ -1,47 +1,52 @@
-<h1 mat-dialog-title>Inscription</h1>
+<div class="container" fxLayout="row" fxLayoutWrap fxLayoutAlign="center">
+  <div fxFlex="50%" fxFlex.sm="70%" fxFlex.xs="100%">
+    <h1 mat-dialog-title>Inscription</h1>
 
-<app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
+    <app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Pseudo" formControlName="username">
-    <mat-error *ngIf="registerForm.get('username').hasError('required')">
-      Le pseudo est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Pseudo" formControlName="username">
+        <mat-error *ngIf="registerForm.get('username').hasError('required')">
+          Le pseudo est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Email" formControlName="email">
-    <mat-error *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">
-      Veuillez entrer un email valide
-    </mat-error>
-    <mat-error *ngIf="registerForm.get('email').hasError('required')">
-      L'email est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error
+          *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">
+          Veuillez entrer un email valide
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('email').hasError('required')">
+          L'email est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Mot de passe" formControlName="password" type="password">
-    <mat-error *ngIf="registerForm.get('password').hasError('required')">
-      Le mot de passe est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Mot de passe" formControlName="password" type="password">
+        <mat-error *ngIf="registerForm.get('password').hasError('required')">
+          Le mot de passe est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Prénom" formControlName="firstname">
-    <mat-error *ngIf="registerForm.get('firstname').hasError('required')">
-      Le prénom est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Prénom" formControlName="firstname">
+        <mat-error *ngIf="registerForm.get('firstname').hasError('required')">
+          Le prénom est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Nom" formControlName="lastname">
-    <mat-error *ngIf="registerForm.get('lastname').hasError('required')">
-      Le nom est <strong>requis</strong>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Nom" formControlName="lastname">
+        <mat-error *ngIf="registerForm.get('lastname').hasError('required')">
+          Le nom est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Confirmer</button>
-</form>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Confirmer</button>
+    </form>
 
-<app-show-message *ngIf="error" message="LOGIN_SUCCESS" color="success" title="Succès"></app-show-message>
+    <app-show-message *ngIf="success" message="LOGIN_SUCCESS" color="success" title="Succès"></app-show-message>
+  </div>
+</div>

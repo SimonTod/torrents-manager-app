@@ -4,7 +4,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {JwtModule, JWT_OPTIONS, JwtInterceptor} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {Routing} from './app.routing';
 import {ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN} from './app.config';
@@ -19,6 +18,7 @@ import {MediaListComponent} from './components/media-list/media-list.component';
 import {MediaCreateComponent, MediaCreateDialog} from './components/media-create/media-create.component';
 import {ShowMessageComponent} from './components/show-message/show-message.component';
 
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatIconModule,
@@ -71,7 +71,7 @@ export function jwtOptionsFactory(tokenService) {
       }
     }),
     YoutubePlayerModule,
-    NgbModule.forRoot(),
+    FlexLayoutModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,

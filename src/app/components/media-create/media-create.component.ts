@@ -14,6 +14,8 @@ export interface DialogData {
   config: ApplicationConfig
 }
 
+const CREATED = "created";
+
 @Component({
   selector: 'app-media-create',
   templateUrl: './media-create.component.html',
@@ -41,7 +43,9 @@ export class MediaCreateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.created.next();
+      if (result == CREATED) {
+        this.created.next();
+      }
     });
   }
 
@@ -181,7 +185,7 @@ export class MediaCreateDialog {
       }
     ).then(
       (data: any) => {
-        // this.created.next();
+        this.dialogRef.close(CREATED);
       },
       (error: HttpErrorResponse) => {
         switch (error.status) {
