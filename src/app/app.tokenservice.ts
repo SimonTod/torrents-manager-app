@@ -1,20 +1,14 @@
-import { Inject } from '@angular/core';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../app/app.config';
+import {environment} from '../environments/environment';
 
 export class TokenService {
-    config: ApplicationConfig;
 
-    constructor(
-        @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig
-    ) {
-        this.config = configuration;
+    constructor() {}
+
+    static getWhitelistedDomains() {
+        return [environment.apiDomain];
     }
 
-    getWhitelistedDomains() {
-        return [this.config.apiDomain];
-    }
-
-    getBlacklistedRoutes() {
-        return this.config.apiBlacklistedRoutes;
+    static getBlacklistedRoutes() {
+        return environment.apiBlacklistedRoutes;
     }
 }

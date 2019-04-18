@@ -1,8 +1,8 @@
 import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource, MatSortable} from '@angular/material'
+import {environment} from '../../../environments/environment';
 
 import {HttpService} from '../../services/http.service';
-import {ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN} from '../../app.config';
 
 import {Media} from '../../models/media';
 
@@ -12,7 +12,6 @@ import {Media} from '../../models/media';
   styleUrls: ['./media-list.component.css']
 })
 export class MediaListComponent implements OnInit {
-  config: ApplicationConfig;
   displayedColumns: string[] = ['type', 'name', 'user', 'artist', 'season', 'episode', 'date', 'status', 'downloadedPercentage'];
   medias: MatTableDataSource<Media>;
   error: string = '';
@@ -20,14 +19,11 @@ export class MediaListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
     private httpService: HttpService
-  ) {
-    this.config = configuration;
-  }
+  ) {}
 
   ngOnInit() {
-    this.httpService.get(this.config.apiEndpoint + "/media/list")
+    this.httpService.get(environment.apiEndpoint + "/media/list")
       .then(
         (data: Array<Media>) => {
           this.medias = new MatTableDataSource(data);

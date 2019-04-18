@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiDomain: "api.torrents-manager.local",
+  apiEndpoint: "http://api.torrents-manager.local/app_dev.php",
+  apiBlacklistedRoutes: [
+    "api.torrents-manager.local/app_dev.php/login_check",
+    "api.torrents-manager.local/app_dev.php/register",
+    "api.torrents-manager.local/app_dev.php/token/refresh"
+  ]
 };
 
 /*

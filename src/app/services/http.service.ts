@@ -1,20 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../app.config';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  config: ApplicationConfig;
 
   constructor(
-    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
     public http: HttpClient
-  ) {
-    this.config = configuration;
-   }
+  ) {}
 
   post(url: string, body: any): Promise<any> {
     let headerDict = {}
@@ -74,7 +70,7 @@ export class HttpService {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    const refreshObservable = this.http.post(this.config.apiEndpoint + "/token/refresh", body.toString(), { headers });
+    const refreshObservable = this.http.post(environment.apiEndpoint + "/token/refresh", body.toString(), { headers });
 
     const refreshSubject = new ReplaySubject<any>(1);
     refreshSubject.subscribe((r: any) => {

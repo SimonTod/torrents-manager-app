@@ -1,18 +1,12 @@
-import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {environment} from '../../../environments/environment';
 
 import {HttpService} from '../../services/http.service';
-import {ApplicationConfig, MY_CONFIG_TOKEN} from '../../app.config';
 
 import {MediaType} from '../../models/media';
-
-export interface DialogData {
-  config: ApplicationConfig
-}
 
 const CREATED = "created";
 
@@ -22,24 +16,19 @@ const CREATED = "created";
   styleUrls: ['./media-create.component.css']
 })
 export class MediaCreateComponent implements OnInit {
-  config: ApplicationConfig;
 
   @Output() created = new EventEmitter<string>();
 
   constructor(
-    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
     private dialog: MatDialog
-  ) {
-    this.config = configuration;
-  }
+  ) {}
 
   ngOnInit(): void {
   }
 
   openModal() {
     const dialogRef = this.dialog.open(MediaCreateDialog, {
-      width: '500px',
-      data: {config: this.config}
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -57,23 +46,20 @@ export class MediaCreateComponent implements OnInit {
   styleUrls: ['./media-create.component.css']
 })
 export class MediaCreateDialog {
-  config: ApplicationConfig;
   mediaTypes: Array<MediaType>;
   form: FormGroup;
   error: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<MediaCreateDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private formBuilder: FormBuilder,
     private httpService: HttpService,
   ) {
-    this.config = data.config;
     this.initForm();
   }
 
   ngOnInit() {
-    this.httpService.get(this.config.apiEndpoint + "/media/types/list")
+    this.httpService.get(environment.apiEndpoint + "/media/types/list")
       .then(
         (data: Array<MediaType>) => {
           this.mediaTypes = data;
@@ -174,7 +160,7 @@ export class MediaCreateDialog {
   create() {
     this.error = '';
     this.httpService.post(
-      this.config.apiEndpoint + "/media/create",
+      environment.apiEndpoint + "/media/create",
       {
         name: this.form.value.name,
         type: this.form.value.type,

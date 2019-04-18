@@ -6,7 +6,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 
 import {Routing} from './app.routing';
-import {ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN} from './app.config';
 import {TokenService} from './app.tokenservice';
 import {RefreshTokenInterceptorService} from './services/refresh-token-interceptor.service';
 
@@ -36,8 +35,8 @@ import {
 } from "@angular/material";
 
 export function jwtOptionsFactory(tokenService) {
-  var whitelistedDomains = tokenService.getWhitelistedDomains();
-  var blacklistedRoutes = tokenService.getBlacklistedRoutes();
+  var whitelistedDomains = TokenService.getWhitelistedDomains();
+  var blacklistedRoutes = TokenService.getBlacklistedRoutes();
   return {
     tokenGetter: () => {
       return localStorage.getItem('token');
@@ -88,7 +87,6 @@ export function jwtOptionsFactory(tokenService) {
     MatSortModule
   ],
   providers: [
-    {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},
     TokenService,
     JwtInterceptor, // Providing JwtInterceptor allow to inject JwtInterceptor manually into RefreshTokenInterceptor
     // {

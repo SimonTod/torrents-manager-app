@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 import { HttpService } from '../../services/http.service';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../../app.config';
 
 @Component({
   selector: 'app-registerpage',
@@ -11,18 +11,15 @@ import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../../app.config'
   styleUrls: ['./registerpage.component.css']
 })
 export class RegisterpageComponent implements OnInit {
-  config: ApplicationConfig;
   registerForm: FormGroup;
   error: string = '';
   success: boolean = false;
 
   constructor(
-    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
     private formBuilder: FormBuilder,
     private httpService: HttpService,
     private router: Router
-  ) { 
-    this.config = configuration;
+  ) {
     this.registerForm = formBuilder.group({
       'username': ['', Validators.required],
       'email': ['', [ Validators.required, Validators.email ]],
@@ -41,7 +38,7 @@ export class RegisterpageComponent implements OnInit {
     this.success = false;
     this.error = '';
     this.httpService.post(
-      this.config.apiEndpoint + "/register", 
+      environment.apiEndpoint + "/register",
       { 
         username: this.registerForm.value.username, 
         email: this.registerForm.value.email, 

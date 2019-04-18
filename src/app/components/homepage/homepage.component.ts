@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 import { HttpService } from '../../services/http.service';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../../app.config';
 
 import { User } from '../../models/user';
 
@@ -12,17 +12,13 @@ import { User } from '../../models/user';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  config: ApplicationConfig;
   currentUser: User;
   error: string = '';
 
   constructor(
-    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
     private router: Router, 
     private httpService: HttpService
-  ) {
-    this.config = configuration;
-   }
+  ) {}
 
   ngOnInit() {
     if (!this.httpService.hasAuthToken())
@@ -33,7 +29,7 @@ export class HomepageComponent implements OnInit {
   }
 
   init() {
-    this.httpService.get(this.config.apiEndpoint + "/user")
+    this.httpService.get(environment.apiEndpoint + "/user")
     .then(
       (data: User) => {
         this.currentUser = data;
