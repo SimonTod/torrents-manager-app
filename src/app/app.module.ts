@@ -31,7 +31,8 @@ import {
   MatTableModule,
   MatDialogModule,
   MatCheckboxModule,
-  MatCardModule
+  MatCardModule,
+  MatSortModule
 } from "@angular/material";
 
 export function jwtOptionsFactory(tokenService) {
@@ -83,7 +84,8 @@ export function jwtOptionsFactory(tokenService) {
     MatTableModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatSortModule
   ],
   providers: [
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},

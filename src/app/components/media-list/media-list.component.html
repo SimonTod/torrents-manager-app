@@ -2,49 +2,54 @@
 
 <app-media-create (created)="ngOnInit()"></app-media-create>
 
-<table mat-table [dataSource]="medias">
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrer">
+</mat-form-field>
+
+
+<table mat-table matSort [dataSource]="medias">
   <ng-container matColumnDef="type">
-    <th mat-header-cell *matHeaderCellDef> Type</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
     <td mat-cell *matCellDef="let media"> {{media.type.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Nom</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom</th>
     <td mat-cell *matCellDef="let media"> {{media.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="user">
-    <th mat-header-cell *matHeaderCellDef> Ajouté par</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ajouté par</th>
     <td mat-cell *matCellDef="let media"> {{media.user.username}} </td>
   </ng-container>
 
   <ng-container matColumnDef="artist">
-    <th mat-header-cell *matHeaderCellDef> Artiste</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Artiste</th>
     <td mat-cell *matCellDef="let media"> {{media.artist}} </td>
   </ng-container>
 
   <ng-container matColumnDef="season">
-    <th mat-header-cell *matHeaderCellDef> Saison</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Saison</th>
     <td mat-cell *matCellDef="let media"> {{media.season | number}} </td>
   </ng-container>
 
   <ng-container matColumnDef="episode">
-    <th mat-header-cell *matHeaderCellDef> Episode</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode</th>
     <td mat-cell *matCellDef="let media"> {{media.episode | number}} </td>
   </ng-container>
 
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef> Ajouté le</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ajouté le</th>
     <td mat-cell *matCellDef="let media"> {{media.date | date}} </td>
   </ng-container>
 
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Statut</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut</th>
     <td mat-cell *matCellDef="let media"> {{media.status}} </td>
   </ng-container>
 
   <ng-container matColumnDef="downloadedPercentage">
-    <th mat-header-cell *matHeaderCellDef> Téléchargé</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Téléchargé</th>
     <td mat-cell *matCellDef="let media"> {{media.downloadedPercentage}} </td>
   </ng-container>
 
