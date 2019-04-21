@@ -23,8 +23,23 @@ export class HttpService {
     console.log("Call post " + url);
     return this.http.post(url, body, requestOptions)
       .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+      .then(HttpService.extractData)
+      .catch(HttpService.handleError);
+  }
+
+  delete(url: string): Promise<any> {
+    let headerDict = {}
+    headerDict["Content-Type"] = 'application/json';
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    console.log("Call delete " + url);
+    return this.http.delete(url, requestOptions)
+      .toPromise()
+      .then(HttpService.extractData)
+      .catch(HttpService.handleError);
   }
 
   get(url: string, body: any = null): Promise<any> {
@@ -32,8 +47,8 @@ export class HttpService {
     console.log("Call get " + urlGet);
     return this.http.get(urlGet)
       .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+      .then(HttpService.extractData)
+      .catch(HttpService.handleError);
   }
 
   private BuildURLParametersString(parameters: any): string {
@@ -51,17 +66,17 @@ export class HttpService {
     return string;
   }
 
-  private extractData(res: Response) {
+  private static extractData(res: Response) {
     return res || {};
   }
 
-  private handleError(res: Response | any) {
+  private static handleError(res: Response | any) {
     console.error('Entering HttpService handleError');
     console.dir(res);
     return Promise.reject(res);
   }
 
-  public hasAuthToken() {
+  public static hasAuthToken() {
     return localStorage.getItem('token') !== null;
   }
 

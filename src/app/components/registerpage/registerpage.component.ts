@@ -30,7 +30,7 @@ export class RegisterpageComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.httpService.hasAuthToken())
+    if (HttpService.hasAuthToken())
       this.router.navigate(['']);
   }
 

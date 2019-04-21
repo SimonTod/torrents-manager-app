@@ -12,6 +12,7 @@ export class Media {
     date: Date;
     status: string;
     downloadedPercentage: string;
+    votes: Array<User>;
 }
 
 export class MediaType {

@@ -14,7 +14,7 @@ export class AppComponent {
   }
 
   hasAuthToken() {
-    return this.httpService.hasAuthToken();
+    return HttpService.hasAuthToken();
   }
 
   logout() {

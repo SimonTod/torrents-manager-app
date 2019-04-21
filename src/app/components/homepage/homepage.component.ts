@@ -21,7 +21,7 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.httpService.hasAuthToken())
+    if (!HttpService.hasAuthToken())
       this.router.navigate(['login']);
     else {
       this.init();

@@ -21,6 +21,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatIconModule,
+  MatIconRegistry,
   MatMenuModule,
   MatSidenavModule,
   MatToolbarModule,
@@ -31,8 +32,10 @@ import {
   MatDialogModule,
   MatCheckboxModule,
   MatCardModule,
-  MatSortModule
+  MatSortModule,
+  MatBadgeModule
 } from "@angular/material";
+import { DomSanitizer } from '@angular/platform-browser';
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = TokenService.getWhitelistedDomains();
@@ -84,7 +87,8 @@ export function jwtOptionsFactory(tokenService) {
     MatDialogModule,
     MatCheckboxModule,
     MatCardModule,
-    MatSortModule
+    MatSortModule,
+    MatBadgeModule
   ],
   providers: [
     TokenService,
@@ -103,4 +107,7 @@ export function jwtOptionsFactory(tokenService) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  }
 }

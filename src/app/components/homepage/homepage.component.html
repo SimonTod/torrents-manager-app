@@ -4,6 +4,6 @@
 
     <h5 mat-dialog-title>Bienvenue {{currentUser.username}}</h5>
 
-    <app-media-list></app-media-list>
+    <app-media-list *ngIf="currentUser" [currentUser]="currentUser"></app-media-list>
   </div>
 </div>
