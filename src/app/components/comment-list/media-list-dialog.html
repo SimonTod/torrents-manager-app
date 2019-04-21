@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Commentaires</h1>
+<div mat-dialog-content>
+  <mat-card *ngFor="let comment of media.comments">
+    <mat-card-header>
+      <div mat-card-avatar class="admin-header-image" *ngIf="comment.is_admin_comment"></div>
+      <mat-card-title *ngIf="comment.is_admin_comment">{{comment.user.username}} [Admin]</mat-card-title>
+      <mat-card-title *ngIf="!comment.is_admin_comment">{{comment.user.username}}</mat-card-title>
+      <mat-card-subtitle>{{comment.date | date}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{comment.text}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<h3 mat-dialog-title>Ajouter un commentaire</h3>
+
+<form [formGroup]="form" (ngSubmit)="create()">
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Commentaire" formControlName="text"></textarea>
+    <mat-error *ngIf="form.get('text').hasError('required')">
+      Le commentaire est <strong>requis</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Confirmer</button>
+</form>
+
+<app-show-message *ngIf="error" message="{{error}}" color="error" title="Erreur"></app-show-message>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Fermer</button>
+</div>

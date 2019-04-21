@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Comment } from './comment';
 
 export class Media {
     id: number;
@@ -13,6 +14,7 @@ export class Media {
     status: string;
     downloadedPercentage: string;
     votes: Array<User>;
+    comments: Array<Comment>;
 }
 
 export class MediaType {

@@ -13,7 +13,7 @@ import {User} from '../../models/user';
   styleUrls: ['./media-list.component.css']
 })
 export class MediaListComponent implements OnInit {
-  displayedColumns: string[] = ['type', 'name', 'user', 'artist', 'season', 'episode', 'date', 'status', 'downloadedPercentage', 'votes'];
+  displayedColumns: string[] = ['type', 'name', 'user', 'artist', 'season', 'episode', 'date', 'status', 'downloadedPercentage', 'votes', 'comments'];
   medias: MatTableDataSource<Media>;
   error: string = '';
 

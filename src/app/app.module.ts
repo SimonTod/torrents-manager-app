@@ -16,6 +16,7 @@ import {RegisterpageComponent} from './components/registerpage/registerpage.comp
 import {MediaListComponent} from './components/media-list/media-list.component';
 import {MediaCreateComponent, MediaCreateDialog} from './components/media-create/media-create.component';
 import {ShowMessageComponent} from './components/show-message/show-message.component';
+import {CommentListComponent, CommentListDialog} from './components/comment-list/comment-list.component';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -58,9 +59,11 @@ export function jwtOptionsFactory(tokenService) {
     MediaListComponent,
     MediaCreateComponent,
     MediaCreateDialog,
-    ShowMessageComponent
+    ShowMessageComponent,
+    CommentListComponent,
+    CommentListDialog
   ],
-  entryComponents: [MediaCreateDialog],
+  entryComponents: [MediaCreateDialog,CommentListDialog],
   imports: [
     BrowserModule,
     Routing,

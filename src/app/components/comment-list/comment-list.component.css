@@ -1,0 +1,8 @@
+.full-width {
+    width: 100%;
+}
+
+.admin-header-image {
+    background-image: url('../../../assets/images/icons-admin.png');
+    background-size: cover;
+}

@@ -66,6 +66,14 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="comments">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Commentaires</th>
+    <td mat-cell *matCellDef="let media">
+      {{media.comments?.length}}
+      <app-comment-list [media]="media"></app-comment-list>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
